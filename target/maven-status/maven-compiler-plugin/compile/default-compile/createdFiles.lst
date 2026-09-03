@@ -1,0 +1,7 @@
+com/example/wallet/WalletController.class
+com/example/wallet/TransactionRepository.class
+com/example/wallet/Transaction.class
+com/example/wallet/Application.class
+com/example/wallet/WalletService.class
+com/example/wallet/MaxAccountId.class
+com/example/wallet/MaxAccountIdRepository.class
