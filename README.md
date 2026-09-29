@@ -33,21 +33,39 @@ API Endpoints & Testing
 All endpoints accept and return JSON format (⁠Content-Type: application/json⁠).
 
 1. Create Account
-curl -X POST http://localhost:8080/api/create-account -H "Content-Type: application/json" -d '{"amount": 1000.00}'
+curl -X POST http://localhost:8080/api/create-account -H "Content-Type: application/json" -d '{"Amount": 1000.00}'
 
 2. Check Balance
 curl -X POST http://localhost:8080/api/balance -H "Content-Type: application/json" -d '{"Account_ID": "000001"}'
 
 3. Deposit Funds
-curl -X POST http://localhost:8080/api/deposit -H "Content-Type: application/json" -d '{"Account_ID": "000001", "amount": 100.00}'
+curl -X POST http://localhost:8080/api/deposit -H "Content-Type: application/json" -d '{"Account_ID": "000001", "Amount": 100.00}'
 
 4. Withdraw Funds
-curl -X POST http://localhost:8080/api/withdraw -H "Content-Type: application/json" -d '{"Account_ID": "000001", "amount": 50.00}'
+curl -X POST http://localhost:8080/api/withdraw -H "Content-Type: application/json" -d '{"Account_ID": "000001", "Amount": 50.00}'
 
 5. Transfer Funds
-curl -X POST http://localhost:8080/api/transfer -H "Content-Type: application/json" -d '{"from_Account_ID": "000001", "to_Account_ID": "000002", "amount": 20.00}'
+curl -X POST http://localhost:8080/api/transfer -H "Content-Type: application/json" -d '{"from_Account_ID": "000001", "to_Account_ID": "000002", "Amount": 20.00}'
 
 Core Features & Safety Guarantees
  Deadlock Prevention: During transfers, accounts are locked strictly in lexicographical order (⁠fromAcc.compareTo(toAcc)⁠).
  Cache Invalidation: Any mutation operation (⁠deposit⁠, ⁠withdraw⁠, ⁠transfer⁠) automatically evicts the balance cache for affected accounts.
  Data Integrity: All financial logic runs inside ⁠@Transactional⁠ scope with explicit rollback on error.
+
+
+docker exec -it wallet-db psql -U postgres
+
+\l
+
+\c walletdb
+
+\dt
+
+SELECT * FROM transaction;
+
+SELECT * FROM max_account_id;
+
+\q
+
+
+ docker exec -it wallet-db psql -U postgres -d walletdb
